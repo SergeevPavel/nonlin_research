@@ -1,7 +1,7 @@
 
 INCLUDE_PATH=include/
 SRC_PATH=src/
-C_FLAGS=-O2
+C_FLAGS=-g -O0 -std=c++11
 
 
 all: main.o RKSolver.o
@@ -15,3 +15,4 @@ RKSolver.o: $(SRC_PATH)RKSolver.cpp
 	
 clean:
 	rm *.o
+	rm Solver
