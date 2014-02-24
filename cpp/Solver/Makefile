@@ -1,15 +1,17 @@
-CXXFLAGS =	-O2 -g -Wall -fmessage-length=0
 
-OBJS =		Solver.o
+INCLUDE_PATH=include/
+SRC_PATH=src/
+C_FLAGS=-O2
 
-LIBS =
 
-TARGET =	Solver
+all: main.o RKSolver.o
+	g++ main.o RKSolver.o -o Solver
 
-$(TARGET):	$(OBJS)
-	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
+main.o: $(SRC_PATH)main.cpp
+	g++ -I$(INCLUDE_PATH) $(C_FLAGS) -c $(SRC_PATH)main.cpp
 
-all:	$(TARGET)
-
+RKSolver.o: $(SRC_PATH)RKSolver.cpp
+	g++ -I$(INCLUDE_PATH) $(C_FLAGS) -c $(SRC_PATH)RKSolver.cpp
+	
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm *.o

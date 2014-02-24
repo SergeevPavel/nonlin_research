@@ -1,14 +1,15 @@
+/*
+ * RKSolver.cpp
+ *
+ *  Created on: 24.02.2014
+ *      Author: pavel
+ */
+
+#include <cmath>
 #include <iostream>
 #include <fstream>
-#include <cmath>
-#include <ctime>
 
-
-struct Point
-{
-	double x1;
-	double x2;
-};
+#include "RKSolver.h"
 
 
 Point f(Point a, double t)
@@ -160,14 +161,4 @@ void Calc()
 
 	SaveInFile(plane, N, M);
 	DestroyPlane(plane, N, M);
-}
-
-int main()
-{
-	std::cout<<"Start"<<std::endl;
-	clock_t t = clock();
-	Calc();
-	std::cout<<"Done!"<<std::endl;
-	std::cout<<"Elapsed time:"<< (double)(clock() - t) / CLOCKS_PER_SEC<<std::endl;
-	return 0;
 }
