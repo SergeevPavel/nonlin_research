@@ -10,7 +10,7 @@ all: main.o RKSolver.o
 main.o: $(SRC_PATH)main.cpp
 	g++ -I$(INCLUDE_PATH) $(C_FLAGS) -c $(SRC_PATH)main.cpp
 
-RKSolver.o: $(SRC_PATH)RKSolver.cpp
+RKSolver.o: $(SRC_PATH)RKSolver.cpp $(INCLUDE_PATH)RKSolver.h
 	g++ -I$(INCLUDE_PATH) $(C_FLAGS) -c $(SRC_PATH)RKSolver.cpp
 	
 clean:
