@@ -16,4 +16,4 @@ RKSolver.o: $(SRC_PATH)RKSolver.cpp $(INCLUDE_PATH)RKSolver.h
 	
 clean:
 	rm *.o
-	rm Solver
+	rm Test

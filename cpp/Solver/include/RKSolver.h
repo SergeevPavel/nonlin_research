@@ -177,6 +177,13 @@ public:
 		return points;
 	}
 
+	int nodesCount;
+	double step;
+	Point<dim>* points;
+	bool isInfinit;
+	double startTime;
+	double stopTime;
+	int* pCopyCounter;
 private:
 	Solution()
 	{
@@ -193,14 +200,6 @@ private:
 	friend class Solver;
 	template<int d>
 	friend std::ostream& operator<<(std::ostream& stream, Solution<d> sol);
-
-	int nodesCount;
-	double step;
-	Point<dim>* points;
-	bool isInfinit;
-	double startTime;
-	double stopTime;
-	int* pCopyCounter;
 };
 
 template <int d>

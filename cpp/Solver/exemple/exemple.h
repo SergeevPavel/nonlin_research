@@ -28,10 +28,10 @@ Point<1> f1(Point<1> y, double t) {
 
 Point<1> f2(Point<1> y, double t) {
 	Point<1> fy;
-	fy = 2*y;
+	fy = y*2.0;
 	return fy;
 }
-
+/*
 Point<1> f3(Point<1> y, double t) {
 	Point<1> fy;
 	fy = t + y;
@@ -59,6 +59,6 @@ Point<4> f6(Point<4> y, double t) {
 	fy[3] = t*y[4];
 	fy[4] = t*y[5];
 	return fy;
-}
+}*/
 
 #endif /* EXEMPLE_H_ */
