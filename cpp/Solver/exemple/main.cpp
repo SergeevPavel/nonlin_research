@@ -19,7 +19,7 @@ int main()
 {
 	Timer timer;
 
-	Ode<1> ode{f1, {1}, 0.0, 1.0, 0.01};
+	Ode<1> ode{f1, {1}, 0.0, 1.0, 0.02};
 	Solver<1> slv1;
 	Solution<1> solution = slv1.Solve(ode);
 
@@ -27,12 +27,14 @@ int main()
 	for (int i = 0; i <= solution.nodesCount; i++)
 	{
 		double t = i*solution.step;
-		double div = fabs(solution[i][0] - (5*pow(t,2.0)/2.0 + 1));
-		std::cout << div << std::endl;
-		if (div > max)
-			max = div;
+		double diff = fabs(solution[i][0] - (pow(t,2)/2 + 1));
+		std::cout << solution[i][0] << std::endl;
+		if (diff > max)
+			max = diff;
 	}
-	std::cout << "max div = " << div << std::endl;
+	std::cout << "max div = " << max << std::endl;
+	std::cout << "Solution\n";
+	std::cout << solution;
 	return 0;
 }
 
