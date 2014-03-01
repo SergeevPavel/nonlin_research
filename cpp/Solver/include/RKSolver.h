@@ -93,9 +93,14 @@ public:
 	}
 
 
-	double& operator[](const int ind)
+	double& operator[](int i)
 	{
-		return X[ind];
+		return X[i];
+	}
+
+	double operator[](int i) const
+	{
+		return X[i];
 	}
 
 	double abs()
@@ -160,6 +165,16 @@ public:
 			delete pCopyCounter;
 			delete []points;
 		}
+	}
+
+	const Point<dim>& operator[](int i)
+	{
+		return points[i];
+	}
+
+	const Point<dim>* GetData() const
+	{
+		return points;
 	}
 
 private:
