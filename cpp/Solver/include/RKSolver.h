@@ -216,5 +216,22 @@ private:
 	const double UPPER_BOUND = 10000000000000.0;
 };
 
+class Timer
+{
+public:
+	Timer()
+	{
+		t = clock();
+		std::cout<<"Start"<<std::endl;
+	}
+	~Timer()
+	{
+		std::cout<<"Done!"<<std::endl;
+		std::cout<<"Elapsed time:"<< (double)(clock() - t) / CLOCKS_PER_SEC<<std::endl;
+	}
+private:
+	clock_t t;
+};
+
 }
 #endif /* RKSOLVER_H_ */
