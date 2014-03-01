@@ -140,16 +140,40 @@ template <int dim>
 class Solution
 {
 public:
+	Solution(const Solution& s)
+	{
+		this->nodesCount = s.nodesCount;
+		this->step = s.step;
+		this->points = s.points;
+		this->isInfinit = s.isInfinit;
+		this->startTime = s.startTime;
+		this->stopTime = s.stopTime;
+		this->pCopyCounter = s.pCopyCounter;
+		(*pCopyCounter)++;
+	}
+
 	~Solution()
 	{
-		//delete []points;
-		std::cout<<"destructor"<<std::endl;
+		(*pCopyCounter)--;
+		if (*pCopyCounter == 0)
+		{
+			delete pCopyCounter;
+			delete []points;
+		}
 	}
+
 private:
 	Solution()
 	{
-
+		pCopyCounter = new int;
+		*pCopyCounter = 1;
 	}
+
+	Solution& operator=(const Solution& s)
+	{
+		return *this;
+	}
+
 	template <int d1>
 	friend class Solver;
 	template<int d>
@@ -161,6 +185,7 @@ private:
 	bool isInfinit;
 	double startTime;
 	double stopTime;
+	int* pCopyCounter;
 };
 
 template <int d>
@@ -179,7 +204,7 @@ class Solver
 public:
 	Solution<d1> Solve(Ode<d1> ode)
 	{
-		Solution<d1> sol{};
+		Solution<d1> sol;
 		sol.nodesCount = 10;
 		sol.step = (ode.stopTime - ode.startTime) / sol.nodesCount;
 		sol.points = new Point<d1>[sol.nodesCount];
