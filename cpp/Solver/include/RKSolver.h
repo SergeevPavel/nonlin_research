@@ -25,6 +25,7 @@ public:
 		memset(X, 0x00, sizeof(double) * dim);
 	}
 
+
 	Point(double i_X[dim])
 	{
 		memcpy(X, i_X, sizeof(double) * dim);
@@ -91,6 +92,15 @@ public:
 		}
 		return *this;
 	}
+	Point operator-(Point &p)
+	{
+		Point<dim>sub;
+		for (int i = 0; i < dim; i++)
+		{
+			sub.X[i] = this->X[i] - p.X[i];
+		}
+		return sub;
+	}
 
 
 	double& operator[](int i)
@@ -98,7 +108,7 @@ public:
 		return X[i];
 	}
 
-	double operator[](int i) const
+	const double operator[](int i) const
 	{
 		return X[i];
 	}
@@ -138,6 +148,7 @@ public:
 	double startTime;
 	double stopTime;
 	double prec;
+	//int intCount;
 };
 
 
@@ -207,7 +218,7 @@ std::ostream &operator<<(std::ostream& stream, Solution<d> sol)
 {
 	for (int i = 0; i < sol.nodesCount; i++)
 	{
-		stream<<sol.points[i]<<std::endl;
+		stream << sol.points[i] << std::endl;
 	}
 	return stream;
 };
@@ -216,11 +227,18 @@ template <int d1>
 class Solver
 {
 public:
+	Solution<d1> Solve(Point<d1> (*ode)(Point<d1> p, double t), Point<d1> y0, double start, double end, double step)
+	{
+		Solution<d1> sol;
+		return sol;
+	}
+
 	Solution<d1> Solve(Ode<d1> ode)
 	{
 		Solution<d1> sol;
-		sol.nodesCount = 10;
-		sol.step = (ode.stopTime - ode.startTime) / sol.nodesCount;
+		sol.nodesCount = 51;
+		//sol.nodesCount = ode.intCount + 1;
+		sol.step = (ode.stopTime - ode.startTime) / (sol.nodesCount - 1);
 		sol.points = new Point<d1>[sol.nodesCount];
 		sol.isInfinit = false;
 		sol.points[0] = ode.startPoint;
@@ -248,8 +266,46 @@ public:
 			}
 			t += h;
 		}
-
 		return sol;
+	}
+	double EffOrder(Ode<d1> ode)
+	{
+		int Nodes[3] = {128, 256, 512};
+		Point<d1> S[3];
+		Solution<d1> sol[3];
+		for (int s = 0; s < 3; s++)
+		{
+
+			sol[s].nodesCount = Nodes[s];
+			//sol.nodesCount = ode.intCount + 1;
+			sol[s].step = (ode.stopTime - ode.startTime) / (sol[s].nodesCount - 1);
+			sol[s].points = new Point<d1>[sol[s].nodesCount];
+			sol[s].isInfinit = false;
+			sol[s].points[0] = ode.startPoint;
+			sol[s].startTime = ode.startTime;
+			sol[s].stopTime = ode.stopTime;
+			double t = sol[s].startTime;
+			double h = sol[s].step;
+			Point<d1> k[4];
+			for (int i = 0; i < sol[s].nodesCount - 1; i++)
+			{
+				k[0] = ode.fun(sol[s].points[i], t) * h;
+				k[1] = ode.fun(sol[s].points[i] + k[0] * 0.5, t + 0.5 * h) * h;
+				k[2] = ode.fun(sol[s].points[i] + k[1] * 0.5, t + 0.5 * h) * h;
+				k[3] = ode.fun(sol[s].points[i] + k[2], t + h) * h;
+				sol[s].points[i + 1] = sol[s].points[i] + (k[0] + k[1] * 2.0 + k[2] * 2.0 + k[3]) * (1.0 / 6.0);
+				t += h;
+			}
+			S[s] = sol[s][sol[s].nodesCount - 1];
+			std::cout << S[s] << "\n";
+			//sol.~Solution();
+		}
+		double order;
+		Point<d1> P1, P2;
+		P1 = S[2]-S[1];
+		P2 = S[1]-S[0];
+		order = log(P1.abs() / P2.abs()) / log(0.5);
+		return order;
 	}
 private:
 	const double UPPER_BOUND = 10000000000000.0;

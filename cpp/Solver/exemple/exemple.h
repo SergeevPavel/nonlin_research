@@ -22,7 +22,7 @@ using namespace RKSolver;
 
 Point<1> f1(Point<1> y, double t) {
 	Point<1> fy;
-	fy[1] = t;
+	fy[0] = t;
 	return fy;
 }
 
@@ -31,34 +31,34 @@ Point<1> f2(Point<1> y, double t) {
 	fy = y*2.0;
 	return fy;
 }
-/*
+
 Point<1> f3(Point<1> y, double t) {
 	Point<1> fy;
-	fy = t + y;
+	fy = y + t;
 	return fy;
 }
 
 Point<2> f4(Point<2> y, double t) {
 	Point<2> fy;
-	fy[1] = y[2];
-	fy[2] = pow(y[1],3) - y[1];
+	fy[0] = y[1];
+	fy[1] = pow(y[0],3) - y[0];
 	return fy;
 }
 
 Point<2> f5(Point<2> y, double t) {
 	Point<2> fy;
-	fy[1] = y[2];
-	fy[2] = (1 + 1.3*cos(2*t)) * pow(y[1],3) - y[1];
+	fy[0] = y[1];
+	fy[1] = (1 + 1.3*cos(2*t)) * pow(y[0],3) - y[0];
 	return fy;
 }
 
 Point<4> f6(Point<4> y, double t) {
 	Point<4> fy;
+	fy[0] = t*y[1];
 	fy[1] = t*y[2];
 	fy[2] = t*y[3];
-	fy[3] = t*y[4];
-	fy[4] = t*y[5];
+	fy[3] = t*y[0];
 	return fy;
-}*/
+}
 
 #endif /* EXEMPLE_H_ */
