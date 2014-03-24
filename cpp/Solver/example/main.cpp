@@ -1,10 +1,3 @@
-/*
- * main.cpp
- *
- *  Created on: Mar 1, 2014
- *      Author: mikhail
- */
-
 #include <iostream>
 #include <fstream>
 #include <ctime>

@@ -1,9 +1,4 @@
 /*
- * exemple.h
- *
- *  Created on: Mar 1, 2014
- *      Author: mikhail
- *
  * f1: y' = t
  * f2: y' = 2*y
  * f3: y' = t + y
@@ -12,8 +7,8 @@
  * f6: system y[i] = t*y[i+1], dimension = 4
  */
 
-#ifndef EXEMPLE_H_
-#define EXEMPLE_H_
+#ifndef EXAMPLE_H_
+#define EXAMPLE_H_
 
 #include "RKSolver.h"
 #include <initializer_list>
@@ -61,4 +56,4 @@ Point<4> f6(Point<4> y, double t) {
 	return fy;
 }
 
-#endif /* EXEMPLE_H_ */
+#endif /* EXAMPLE_H_ */
