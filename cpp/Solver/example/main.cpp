@@ -3,10 +3,9 @@
 #include <ctime>
 #include <cmath>
 
-#include "RKSolver.h"
-#include "exemple.h"
+#include "solver.h"
+#include "example.h"
 
-using namespace RKSolver;
 using namespace std;
 
 int main()
@@ -15,8 +14,8 @@ int main()
 
 	Ode<1> ode{f3, {1}, 0.0, 1.0, 0.02};
 	Point<1> y0{1};
-	Solver<1> slv1;
-	Solution<1> solution = slv1.Solve(f3, y0, 0.0, 1.0, 0.02);
+	Solver<1> solver;
+	Solution<1> solution = solver.Solve(ode);
 
 	double max = 0;
 	double t;

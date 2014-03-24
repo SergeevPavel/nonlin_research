@@ -1,19 +1,18 @@
 
 INCLUDE_PATH=include/
-SRC_PATH=src/
-EXEM_PATH=exemple/
-C_FLAGS=-g -O0 -std=c++11
+SOURCES=$(INCLUDE_PATH)/point.h $(INCLUDE_PATH)solution.h $(INCLUDE_PATH)solver.h $(INCLUDE_PATH)utils.h
+EXAMPLE_PATH=example/
+BIN_PATH=bin/
+C_FLAGS=-g -O0 -std=c++0x
 
 
-all: main.o RKSolver.o
-	g++ main.o RKSolver.o -o Test
+all: $(BIN_PATH)main.o
+	g++ $(BIN_PATH)main.o -o $(BIN_PATH)example
 
-main.o: $(EXEM_PATH)main.cpp
-	g++ -I$(INCLUDE_PATH) $(C_FLAGS) -c $(EXEM_PATH)main.cpp
+$(BIN_PATH)main.o: $(EXAMPLE_PATH)main.cpp $(EXAMPLE_PATH)example.h $(SOURCES)
+	g++ -I$(INCLUDE_PATH) $(C_FLAGS) -c $(EXAMPLE_PATH)main.cpp -o $(BIN_PATH)main.o
 
-RKSolver.o: $(SRC_PATH)RKSolver.cpp $(INCLUDE_PATH)RKSolver.h
-	g++ -I$(INCLUDE_PATH) $(C_FLAGS) -c $(SRC_PATH)RKSolver.cpp
+.PHONY: clean
 	
 clean:
-	rm *.o
-	rm Test
+	rm -rf bin/*
