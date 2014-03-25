@@ -22,8 +22,7 @@ public:
 	Solution<d1> Solve(Ode<d1> ode)
 	{
 		Solution<d1> sol;
-		sol.nodesCount = 51;
-		//sol.nodesCount = ode.intCount + 1;
+		sol.nodesCount = ode.nodesCount;
 		sol.step = (ode.stopTime - ode.startTime) / (sol.nodesCount - 1);
 		sol.points = new Point<d1>[sol.nodesCount];
 		sol.isInfinit = false;

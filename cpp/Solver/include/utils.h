@@ -9,8 +9,7 @@ public:
 	Point<dim> startPoint;
 	double startTime;
 	double stopTime;
-	double prec;
-	//int intCount;
+	int nodesCount;
 };
 
 class Timer
@@ -24,7 +23,7 @@ public:
 	~Timer()
 	{
 		std::cout<<"Done!"<<std::endl;
-		std::cout<<"Elapsed time:"<< (double)(clock() - t) / CLOCKS_PER_SEC<<std::endl;
+		std::cout<<"Elapsed time:"<< 1000.0*(double)(clock() - t) / CLOCKS_PER_SEC<<" miliseconds."<<std::endl;
 	}
 private:
 	clock_t t;

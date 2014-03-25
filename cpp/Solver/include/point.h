@@ -1,6 +1,8 @@
 #ifndef POINT_H_
 #define POINT_H_
 
+#include <cmath>
+
 template <int dim>
 class Point
 {
@@ -30,7 +32,7 @@ public:
 		return sum;
 	}
 
-	Point operator+(double add) const
+	Point operator+(const double add) const
 	{
 		Point<dim>sum;
 		for (int i = 0; i < dim; i++)
@@ -49,7 +51,7 @@ public:
 		return *this;
 	}
 
-	Point& operator+=(double add)
+	Point& operator+=(const double add)
 	{
 		for (int i = 0; i < dim; i++)
 		{
@@ -58,7 +60,7 @@ public:
 		return *this;
 	}
 
-	Point operator*(double mul) const
+	Point operator*(const double mul) const
 	{
 		Point<dim>res;
 		for (int i = 0; i < dim; i++)
@@ -68,7 +70,7 @@ public:
 		return res;
 	}
 
-	Point& operator*=(double mult)
+	Point& operator*=(const double mult)
 	{
 		for (int i = 0; i < dim; i++)
 		{
@@ -76,7 +78,7 @@ public:
 		}
 		return *this;
 	}
-	Point operator-(Point &p)
+	Point operator-(const Point &p) const
 	{
 		Point<dim>sub;
 		for (int i = 0; i < dim; i++)
@@ -87,12 +89,12 @@ public:
 	}
 
 
-	double& operator[](int i)
+	double& operator[](const int i)
 	{
 		return X[i];
 	}
 
-	const double operator[](int i) const
+	const double operator[](const int i) const
 	{
 		return X[i];
 	}
