@@ -10,7 +10,6 @@ public:
 		memset(X, 0x00, sizeof(double) * dim);
 	}
 
-
 	Point(double i_X[dim])
 	{
 		memcpy(X, i_X, sizeof(double) * dim);
